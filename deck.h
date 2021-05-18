@@ -1,6 +1,9 @@
+#ifndef DECK_H
+#define DECK_H
+
 #include <stdlib.h>
 
-typedef enum {
+typedef enum SUIT {
     DIAMONDS,
     HEARTS,
     SPADES,
@@ -25,3 +28,5 @@ typedef struct Card {
     Rank rank;
     Card *next; /**< The pointer to the next card. */
 };
+
+#endif
