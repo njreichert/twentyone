@@ -1,6 +1,7 @@
 /* Included via deck.h: <stdlib.h> */
 #include <assert.h>
 #include <stdio.h>
+#include <time.h> /* For RNG seeding */
 #include "deck.h"
 
 const char suitChars[] = "dhsc";
@@ -146,4 +147,32 @@ void printDeck(Deck * deck, int withBraces)
     }
 
     if (withBraces) printf(" >>");
+}
+
+
+void initShuffler()
+{
+    srand(time(NULL));
+}
+
+
+void shuffleDeck(Deck * deck)
+{
+    Deck * tempDeck = initDeck(0);
+
+    /* Grab cards from the deck randomly, and store them away. */
+    while (deck->size > 0) {
+        pushCard(tempDeck, removeCard(deck, rand() % deck->size));
+    }
+
+    deck->top = tempDeck->top;
+    deck->size = tempDeck->size;
+
+    /* 
+     * If top and size are not erased here, deinitDeck() will
+     * segfault or remove all the cards associated with deck.
+     */
+    tempDeck->top = NULL;
+    tempDeck->size = 0;
+    deinitDeck(tempDeck);
 }

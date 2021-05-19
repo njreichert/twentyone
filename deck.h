@@ -115,4 +115,17 @@ void deinitCard(Card * card);
  */
 void printDeck(Deck * deck, int withBraces);
 
+/**
+ * @brief Initializes the RNG. Effectively a wrapper for srand(time(NULL)).
+ * 
+ */
+void initShuffler();
+
+/**
+ * @brief Shuffles the deck in place by randomly selecting cards and placing them into a temporary deck.
+ * 
+ * @param deck The deck to shuffle.
+ */
+void shuffleDeck(Deck * deck);
+
 #endif
