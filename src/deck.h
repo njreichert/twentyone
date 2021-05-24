@@ -24,15 +24,15 @@ typedef unsigned char Rank;
 typedef struct Card {
     Suit suit;
     Rank rank;
-    struct Card * next; /**< The pointer to the next card. */
+    struct Card * next; /** The pointer to the next card. */
 } Card;
 
 /**
  * @brief A Deck. Effectively a linked list of Cards with extra metadata. 
  */
 typedef struct Deck {
-    Card * top; /**< The linked list of cards. */
-    size_t size; /**< Must be changed manually. */
+    Card * top; /** The linked list of cards. */
+    size_t size; /** Must be changed manually. */
 } Deck;
 
 /* Function Definitions */
