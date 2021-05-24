@@ -7,7 +7,7 @@ typedef enum {
     STAND,
     BUST,
     BROKE,
-    NOSTATUS
+    NO_STATUS
 } PlayerStatus;
 
 /**
@@ -20,3 +20,29 @@ typedef struct {
     unsigned int currentBet;
     PlayerStatus status;
 } Player;
+
+
+/**
+ * @brief Initializes a player with some money to start.
+ * 
+ * Initial member values:
+ * name: A null array.
+ * hand: A new Deck pointer.
+ * balance: startingBalance.
+ * currentBet: 0.
+ * status: NO_STATUS.
+ * 
+ * @param startingBalance The amount of mney the player should start with. 
+ * @returns a pointer to the player. 
+ */
+Player * initPlayer(unsigned int startingBalance);
+
+
+/**
+ * @brief Frees memory associated with the current player. 
+ * 
+ * NOTE: Will remove all cards associated with the player's hand.
+ * 
+ * @param player The player to remove.
+ */
+void deinitPlayer(Player * player);
