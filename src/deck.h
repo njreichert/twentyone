@@ -128,4 +128,22 @@ void initShuffler();
  */
 void shuffleDeck(Deck * deck);
 
+/**
+ * @brief Get the value of the cards in the deck.
+ * 
+ * This occurs in passes: First, all cards are counted with 
+ * the following scores:
+ * 
+ * A 2 3 4 5 6 7 8 9 10 J  Q  K 
+ * 1 2 3 4 5 6 7 8 9 10 10 10 10
+ * 
+ * Given that aces are selectively one or eleven, The highest non-bust value 
+ * (21) is computed by adding ten for each ace, such that the value does not
+ * exceed 21.
+ * 
+ * @param deck The Deck/Hand in question. 
+ * @return The value of the cards in the deck.
+ */
+unsigned int getValueOfDeck(Deck * deck);
+
 #endif

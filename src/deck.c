@@ -176,3 +176,30 @@ void shuffleDeck(Deck * deck)
     tempDeck->size = 0;
     deinitDeck(tempDeck);
 }
+
+unsigned int getValueOfDeck(Deck * deck)
+{
+    size_t numAces = 0;
+    Card * currentCard = deck->top;
+    unsigned int score = 0;
+
+    while (currentCard != NULL) {
+        /* 
+         * Card value is zero-indexed, so we need to adjust by one. 
+         * TODO: Maybe adjust how it is stored in Card so this doesn't have to be done?
+         */
+        Rank cardValue = (currentCard->rank + 1);
+        if (cardValue > 10) cardValue = 10;
+
+        if (cardValue == 1) numAces++;
+
+        score += cardValue;
+    }
+
+    while (numAces-- > 0) {
+        if (score + 10 <= 21) score += 10; /* Blackjack. */
+    }
+
+    return score;
+    
+}
