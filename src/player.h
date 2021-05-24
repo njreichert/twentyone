@@ -1,3 +1,6 @@
+#ifndef PLAYER_H
+#define PLAYER_H
+
 #include "deck.h"
 
 #define NAME_LEN 32
@@ -46,3 +49,5 @@ Player * initPlayer(unsigned int startingBalance);
  * @param player The player to remove.
  */
 void deinitPlayer(Player * player);
+
+#endif
