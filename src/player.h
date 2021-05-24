@@ -2,7 +2,7 @@
 
 #define NAME_LEN 32
 
-typedef enum {
+typedef enum PlayerStatus {
     HIT,
     STAND,
     BUST,
@@ -13,7 +13,7 @@ typedef enum {
 /**
  * @brief A player/NPC.
  */
-typedef struct {
+typedef struct Player {
     char name[NAME_LEN + 1];
     Deck * hand;
     unsigned int balance;
