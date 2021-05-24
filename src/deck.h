@@ -72,7 +72,7 @@ void pushCard(Deck * deck, Card * cardToAdd);
 /**
  * @brief Adds a card at a given position.
  * 
- * This function checks by assertion that the position is within the bounds of the deck. 
+ * NOTE: This function checks by assertion that the position is within the bounds of the deck. 
  * 
  * @param deck The deck in question.
  * @param cardToAdd The card in question.
