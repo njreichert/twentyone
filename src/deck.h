@@ -108,6 +108,18 @@ Card * initCard(Suit suit, Rank rank);
 void deinitCard(Card * card);
 
 /**
+ * @brief Deals n cards from src to dst.
+ * 
+ * NOTE: Verifies by assertion that n cards exist in src.
+ * 
+ * @param src The source deck.
+ * @param dst The destination deck.
+ * @param n THe number of cards to deal
+ * @returns The last card to be dealt.
+ */
+Card * dealCard(Deck * src, Deck * dst, size_t n);
+
+/**
  * @brief Prints a representation of the deck.
  * 
  * @param deck The deck in question.

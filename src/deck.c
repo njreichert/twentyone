@@ -98,6 +98,17 @@ Card * removeCard(Deck * deck, size_t pos)
     return currentCard;
 }
 
+Card * dealCard(Deck * src, Deck * dst, size_t n)
+{
+    assert(n <= src->size);
+
+    while (n-- > 0) {
+        pushCard(dst, popCard(src));
+    }
+
+    return dst->top;
+}
+
 
 Card * initCard(Suit suit, Rank rank)
 {
