@@ -9,11 +9,11 @@ typedef enum ElementType {
     STATUSBOX,
 } ElementType;
 
-/* A window in curses, with extra metadata. */
+/* A window in curses, with extra metadata to aid in redrawing if need be. */
 typedef struct Element {
     WINDOW * win;
-    int y; /** Vertical Location. Zero-indexed. */
-    int x; /** Horizontal location. Zero-indexed. */
+    int y; /** Initial vertical location. Zero-indexed. */
+    int x; /** Initial horizontal location. Zero-indexed. */
     int rows;
     int cols;
     int priority; /** Determines order at which Elements will be rendered. */
