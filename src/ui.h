@@ -19,6 +19,7 @@ typedef struct WindowWrapper {
     int rows;
     int cols;
     int priority; /** Determines order at which Elements will be rendered. */
+    int isKeypad;
 } WindowWrapper;
 
 /* 
@@ -28,10 +29,34 @@ typedef struct WindowWrapper {
 typedef struct Terminal {
     int rows;
     int cols;
+    /** Various properties for the screen and its windows. */
     int isCBreak;
-    int isNoEcho;
-    int isKeypad;
+    int isNoecho;
     WindowWrapper * wins[MAX_WINDOWS];
 } Terminal;
+
+/**
+ * @brief Changes the state of cbreak, and stores that in the terminal.
+ * 
+ * @param t The terminal in question.
+ * @param isEnabled Set/clear the respective property.
+ */
+void cbreakSet(Terminal * t, int isEnabled);
+
+/**
+ * @brief Changes the state of noecho, and stores that in the terminal.
+ * 
+ * @param t The terminal in question.
+ * @param isEnabled Set/clear the respective property.
+ */
+void noechoSet(Terminal * t, int isEnabled);
+
+/**
+ * @brief Changes the state of keypad, and stores that in the terminal.
+ * 
+ * @param t The terminal in question.
+ * @param isEnabled Set/clear the respective property.
+ */
+void keypadSet(WindowWrapper * w, int isEnabled);
 
 #endif
