@@ -23,38 +23,39 @@ typedef struct WindowWrapper {
 } WindowWrapper;
 
 /* 
- * The terminal as a whole. Contains a list of MAX_ELEMENTS elements and metadata
- * relating to the terminal.
+ * The screen as a whole. Contains a list of MAX_ELEMENTS WindowWrappers and metadata
+ * relating to the list of windows.
  */
-typedef struct Terminal {
+typedef struct ScreenWrapper {
     int rows;
     int cols;
     /** Various properties for the screen and its windows. */
     int isCBreak;
-    int isNoecho;
+    int isEcho;
     WindowWrapper * wins[MAX_WINDOWS];
-} Terminal;
+    size_t numWindows;
+} ScreenWrapper;
 
 /**
- * @brief Changes the state of cbreak, and stores that in the terminal.
+ * @brief Changes the state of cbreak, and stores that in the ScreenWrapper.
  * 
- * @param t The terminal in question.
+ * @param s The ScreenWrapper in question.
  * @param isEnabled Set/clear the respective property.
  */
-void cbreakSet(Terminal * t, int isEnabled);
+void cbreakSet(ScreenWrapper * s, int isEnabled);
 
 /**
- * @brief Changes the state of noecho, and stores that in the terminal.
+ * @brief Changes the state of noecho, and stores that in the ScreenWrapper.
  * 
- * @param t The terminal in question.
+ * @param s The ScreenWrapper in question.
  * @param isEnabled Set/clear the respective property.
  */
-void noechoSet(Terminal * t, int isEnabled);
+void noechoSet(ScreenWrapper * s, int isEnabled);
 
 /**
- * @brief Changes the state of keypad, and stores that in the terminal.
+ * @brief Changes the state of keypad, and stores that in the Window's metadata.
  * 
- * @param t The terminal in question.
+ * @param t The ScreenWrapper in question.
  * @param isEnabled Set/clear the respective property.
  */
 void keypadSet(WindowWrapper * w, int isEnabled);

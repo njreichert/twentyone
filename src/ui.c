@@ -1,7 +1,7 @@
 /* Included in ui.h: <curses.h> */
 #include "ui.h"
 
-void cbreakSet(Terminal * t, int isEnabled)
+void cbreakSet(ScreenWrapper * t, int isEnabled)
 {
     if (isEnabled) {
         cbreak();
@@ -12,14 +12,14 @@ void cbreakSet(Terminal * t, int isEnabled)
     }
 }
 
-void echoSet(Terminal * t, int isEnabled)
+void echoSet(ScreenWrapper * t, int isEnabled)
 {
     if (isEnabled) {
         echo();
-        t -> isCBreak = 1;
+        t -> isEcho = 1;
     } else {
         noecho();
-        t -> isCBreak = 0;
+        t -> isEcho = 0;
     }
 }
 
