@@ -1,5 +1,6 @@
 /* Included in ui.h: <curses.h> */
 #include <stdlib.h>
+#include <assert.h>
 #include "ui.h"
 #include "player.h"
 
@@ -20,19 +21,38 @@ void deinitScreenWrapper(ScreenWrapper * s)
     for (size_t i = 0; i < s->numWindows; i++)
     {
         deinitWindow(s->wins[i]);
+        s->numWindows -= 1;
     }
 
     endwin();
 }
 
-WindowWrapper * initWindowWrapper(int startY, int startx, int rows, int cols, int border)
+WindowWrapper * initWindowWrapper(int startY, int startX, int rows, int cols)
 {
-    /* TODO */
+    WindowWrapper * newWindow = malloc(sizeof(WindowWrapper));
+
+    newWindow->win = newwin(rows, cols, startY, startX);
+    newWindow->y = startY;
+    newWindow->x = startX;
+    newWindow->rows = rows;
+    newWindow->cols = cols;
+
+    return newWindow;
 }
 
+/* Windows should not be removed as easily as they are added (static elements), so no remove fn here. */
 void addWindowWrapper(WindowWrapper * w, ScreenWrapper * s)
 {
-    /* TODO */
+    assert(s->numWindows + 1 <= MAX_WINDOWS);
+
+    s->wins[s->numWindows] = w;
+    s->numWindows += 1;
+}
+
+void deinitWindowWrapper(WindowWrapper * w)
+{
+    delwin(w->win);
+    free(w);
 }
 
 void cbreakSet(ScreenWrapper * t, int isEnabled)
@@ -68,6 +88,16 @@ void keypadSet(WindowWrapper * w, int isEnabled)
     }
 }
 
+void refreshAll(ScreenWrapper * s)
+{
+    /* Start with stdscr */
+    refresh();
+
+    for (size_t i; i < s->numWindows; i++) {
+        wrefresh(s->wins[i]);
+    }
+}
+
 void initUI(ScreenWrapper * s, int isBorder, Player * players[])
 {
     /* Running total for bottomWindow. */
@@ -78,7 +108,7 @@ void initUI(ScreenWrapper * s, int isBorder, Player * players[])
     totalRowsUsed += topRows;
 
     /* Initialize the top section. */
-    WindowWrapper * topWindow = initWindowWrapper(0, 0, topRows, s->cols, isBorder);
+    WindowWrapper * topWindow = initWindowWrapper(0, 0, topRows, s->cols);
     addWindowWrapper(topWindow, s);
 
     /* 
@@ -95,17 +125,19 @@ void initUI(ScreenWrapper * s, int isBorder, Player * players[])
 
     /* Set up and attach player windows. Handle the final player seperately. */
     for (size_t i = 0; i < NUM_PLAYERS - 1; i++) {
-        playerTemp = initWindowWrapper(totalRowsUsed, middleColsUsed, middleRows, middleCols, isBorder);
+        playerTemp = initWindowWrapper(totalRowsUsed, middleColsUsed, middleRows, middleCols);
         middleColsUsed += middleCols;
 
         players[i]->win = playerTemp;
+
+        addWindowWrapper(playerTemp, s);
     }
 
-    playerTemp = initWindowWrapper(totalRowsUsed, middleColsUsed, middleRows, s->cols - middleColsUsed, isBorder);
+    playerTemp = initWindowWrapper(totalRowsUsed, middleColsUsed, middleRows, s->cols - middleColsUsed);
     players[NUM_PLAYERS - 1]->win = playerTemp;
 
     totalRowsUsed += middleRows;
     
-    WindowWrapper * bottomWindow = initWindowWrapper(totalRowsUsed, 0, s->rows - totalRowsUsed, s->cols, isBorder);
+    WindowWrapper * bottomWindow = initWindowWrapper(totalRowsUsed, 0, s->rows - totalRowsUsed, s->cols);
     addWindowWrapper(bottomWindow, s);
 }

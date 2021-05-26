@@ -45,6 +45,34 @@ typedef struct ScreenWrapper {
 ScreenWrapper * initCurses();
 
 /**
+ * @brief Initializes a new window and populates metadata.
+ * 
+ * @param startY Starting Y position.
+ * @param startX Starting X position.
+ * @param rows Number of rows.
+ * @param cols Number of Columns
+ * @returns the new WindowWrapper struct.
+ */
+WindowWrapper * initWindowWrapper(int startY, int startX, int rows, int cols);
+
+/**
+ * @brief Adds a window to the given screenWrapper.
+ * 
+ * NOTE: Checks by assertion that s->wins is in bounds!
+ * 
+ * @param w The WindowWrapper to add. 
+ * @param s The ScreenWrapper in question.
+ */
+void addWindowWrapper(WindowWrapper * w, ScreenWrapper * s);
+
+/**
+ * @brief Frees memory associated with a given window.
+ * 
+ * @param w The WindowWrapper to free.
+ */
+void deinitWindowWrapper(WindowWrapper * w);
+
+/**
  * @brief Changes the state of cbreak, and stores that in the ScreenWrapper.
  * 
  * @param s The ScreenWrapper in question.
@@ -67,6 +95,13 @@ void noechoSet(ScreenWrapper * s, int isEnabled);
  * @param isEnabled Set/clear the respective property.
  */
 void keypadSet(WindowWrapper * w, int isEnabled);
+
+/**
+ * @brief Refreshes all windows on screen.
+ * 
+ * @param s The ScreenWrapper referencing the windows.
+ */
+void refreshAll(ScreenWrapper * s);
 
 /**
  * @brief Initializes various UI elements.
