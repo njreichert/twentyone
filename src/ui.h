@@ -2,6 +2,7 @@
 #define UI_H
 
 #include <curses.h>
+#include "player.h"
 
 #define MAX_WINDOWS 8
 #define TOP_VERT 1.0/3.0
@@ -42,7 +43,14 @@ typedef struct ScreenWrapper {
  * 
  * @returns the ScreenWrapper initialized.
  */
-ScreenWrapper * initCurses();
+ScreenWrapper * initScreenWrapper();
+
+/**
+ * @brief Frees memory associated with a given ScreenWrapper and exits curses.
+ * 
+ * @param s The ScreenWrapper in question.
+ */
+void deinitScreenWrapper(ScreenWrapper * s);
 
 /**
  * @brief Initializes a new window and populates metadata.
@@ -88,7 +96,7 @@ void cbreakSet(ScreenWrapper * s, int isEnabled);
  */
 void noechoSet(ScreenWrapper * s, int isEnabled);
 
-/**
+/**a
  * @brief Changes the state of keypad, and stores that in the Window's metadata.
  * 
  * @param t The ScreenWrapper in question.
@@ -119,6 +127,6 @@ void refreshAll(ScreenWrapper * s);
  * @param isBorder Draws borders on each element, if set.
  * @param players An array of player structs (to attach player windows to).
  */
-void initUI(ScreenWrapper * s, int isBorder, Player * players[]);
+void initUI(ScreenWrapper * s, int isBorder);
 
 #endif

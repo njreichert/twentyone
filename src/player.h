@@ -2,7 +2,6 @@
 #define PLAYER_H
 
 #include "deck.h"
-#include "ui.h"
 #include "defs.h"
 
 #define NAME_LEN 32
@@ -24,7 +23,6 @@ typedef struct Player {
     unsigned int balance;
     unsigned int currentBet;
     PlayerStatus status;
-    WindowWrapper * win; /** Place player info here. */
 } Player;
 
 

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include "ui.h"
-#include "player.h"
+#include "defs.h"
 
 ScreenWrapper * initScreenWrapper()
 {
@@ -20,7 +20,7 @@ void deinitScreenWrapper(ScreenWrapper * s)
 {
     for (size_t i = 0; i < s->numWindows; i++)
     {
-        deinitWindow(s->wins[i]);
+        deinitWindowWrapper(s->wins[i]);
         s->numWindows -= 1;
     }
 
@@ -94,11 +94,11 @@ void refreshAll(ScreenWrapper * s)
     refresh();
 
     for (size_t i; i < s->numWindows; i++) {
-        wrefresh(s->wins[i]);
+        wrefresh(s->wins[i]->win);
     }
 }
 
-void initUI(ScreenWrapper * s, int isBorder, Player * players[])
+void initUI(ScreenWrapper * s, int isBorder)
 {
     /* Running total for bottomWindow. */
     int totalRowsUsed = 0;
@@ -128,13 +128,10 @@ void initUI(ScreenWrapper * s, int isBorder, Player * players[])
         playerTemp = initWindowWrapper(totalRowsUsed, middleColsUsed, middleRows, middleCols);
         middleColsUsed += middleCols;
 
-        players[i]->win = playerTemp;
-
         addWindowWrapper(playerTemp, s);
     }
 
     playerTemp = initWindowWrapper(totalRowsUsed, middleColsUsed, middleRows, s->cols - middleColsUsed);
-    players[NUM_PLAYERS - 1]->win = playerTemp;
 
     totalRowsUsed += middleRows;
     
