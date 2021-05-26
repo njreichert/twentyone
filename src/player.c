@@ -1,4 +1,4 @@
-/* Included in player.h: "deck.h" */
+/* Included in player.h: "deck.h", "ui.h", "defs.h" */
 #include <stdlib.h>
 #include "player.h"
 
