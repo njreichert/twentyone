@@ -4,6 +4,7 @@
 #include "deck.h"
 #include "ui.h"
 
+#define NUM_PLAYERS 4
 #define NAME_LEN 32
 
 typedef enum PlayerStatus {
