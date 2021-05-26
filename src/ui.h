@@ -4,6 +4,8 @@
 #include <curses.h>
 
 #define MAX_WINDOWS 8
+#define TOP_VERT 1.0/3.0
+#define MID_VERT 1.0/3.0
 
 typedef enum ElementType {
     GENERIC,
@@ -18,7 +20,6 @@ typedef struct WindowWrapper {
     int x; /** Initial horizontal location. Zero-indexed. */
     int rows;
     int cols;
-    int priority; /** Determines order at which Elements will be rendered. */
     int isKeypad;
 } WindowWrapper;
 
@@ -35,6 +36,13 @@ typedef struct ScreenWrapper {
     WindowWrapper * wins[MAX_WINDOWS];
     size_t numWindows;
 } ScreenWrapper;
+
+/**
+ * @brief Initalizes a curses instance and associated structs.
+ * 
+ * @returns the ScreenWrapper initialized.
+ */
+ScreenWrapper * initCurses();
 
 /**
  * @brief Changes the state of cbreak, and stores that in the ScreenWrapper.
@@ -59,5 +67,23 @@ void noechoSet(ScreenWrapper * s, int isEnabled);
  * @param isEnabled Set/clear the respective property.
  */
 void keypadSet(WindowWrapper * w, int isEnabled);
+
+/**
+ * @brief Initializes various UI elements.
+ * 
+ * There are three sections:
+ * 
+ * - The top section, displaying dealer hands and other information,
+ * - The middle section, displaying each players' name, hand, and balance, and
+ * - The bottom section, which handles input.
+ * 
+ * Vertical space is determined by the double values TOP_VERT and MID_VERT 
+ * for top and middle, respectively. The bottom section fills all remaining space. 
+ * 
+ * @param s The ScreenWrapper to store created windows in.
+ * @param isBorder Draws borders on each element, if set.
+ * @param players An array of player structs (to attach player windows to).
+ */
+void initUI(ScreenWrapper * s, int isBorder, Player * players[]);
 
 #endif
