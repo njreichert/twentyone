@@ -19,9 +19,7 @@ int main(void)
     ScreenWrapper * sc = initScreenWrapper();
     initUI(sc);
 
-    for (int i = 0; i < sc->numWindows; i++) {
-        wborder(sc->wins[i], 0, 0, 0, 0, 0, 0, 0, 0);
-    }
+    drawBorders(sc);
 
     refreshAll(sc);
     for (size_t i = 0; i < sc->numWindows; i++)

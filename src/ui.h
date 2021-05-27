@@ -90,4 +90,11 @@ void refreshAll(ScreenWrapper * s);
  */
 void initUI(ScreenWrapper * s);
 
+/**
+ * @brief Draws inside borders on all windows.
+ * 
+ * @param s The ScreenWrapper containing the windows to place borders on.
+ */
+void drawBorders(ScreenWrapper * s);
+
 #endif

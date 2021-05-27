@@ -109,3 +109,10 @@ void initUI(ScreenWrapper * s)
     WINDOW * bottomWindow = newwin(s->rows - totalRowsUsed, s->cols, totalRowsUsed, 0);
     addWindow(bottomWindow, s);
 }
+
+void drawBorders(ScreenWrapper * s)
+{
+    for (int i = 0; i < s->numWindows; i++) {
+        box(s->wins[i], 0, 0);
+    }
+}
