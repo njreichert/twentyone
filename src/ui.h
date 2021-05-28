@@ -23,8 +23,9 @@ typedef struct ScreenWrapper {
     /** Various properties for the screen and its windows. */
     int isCBreak;
     int isEcho;
-    WINDOW * wins[MAX_WINDOWS];
-    size_t numWindows;
+    WINDOW * dealerWin;
+    WINDOW * playerWins[MAX_WINDOWS];
+    WINDOW * inputWin;
 } ScreenWrapper;
 
 /**
@@ -40,16 +41,6 @@ ScreenWrapper * initScreenWrapper();
  * @param s The ScreenWrapper in question.
  */
 void deinitScreenWrapper(ScreenWrapper * s);
-
-/**
- * @brief Adds a window to the given ScreenWrapper.
- * 
- * NOTE: Checks by assertion that s->wins is in bounds!
- * 
- * @param w The WINDOW to add. 
- * @param s The ScreenWrapper in question.
- */
-void addWindow(WINDOW * w, ScreenWrapper * s);
 
 /**
  * @brief Changes the state of cbreak, and stores that in the ScreenWrapper.

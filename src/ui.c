@@ -18,22 +18,15 @@ ScreenWrapper * initScreenWrapper()
 
 void deinitScreenWrapper(ScreenWrapper * s)
 {
-    for (size_t i = 0; i < s->numWindows; i++)
+    delwin(s->dealerWin);
+    delwin(s->inputWin);
+
+    for (size_t i = 0; i < MAX_PLAYERS; i++)
     {
-        delwin(s->wins[i]);
-        s->numWindows -= 1;
+        delwin(s->playerWins[i]);
     }
 
     endwin();
-}
-
-/* Windows should not be removed as easily as they are added (static elements), so no remove fn here. */
-void addWindow(WINDOW * w, ScreenWrapper * s)
-{
-    assert(s->numWindows + 1 <= MAX_WINDOWS);
-
-    s->wins[s->numWindows] = w;
-    s->numWindows += 1;
 }
 
 void cbreakSet(ScreenWrapper * t, int isEnabled)
@@ -63,8 +56,11 @@ void refreshAll(ScreenWrapper * s)
     /* Start with stdscr */
     refresh();
 
-    for (size_t i = 0; i < s->numWindows; i++) {
-        wrefresh(s->wins[i]);
+    wrefresh(s->dealerWin);
+    wrefresh(s->inputWin);
+
+    for (size_t i = 0; i < MAX_PLAYERS; i++) {
+        wrefresh(s->playerWins[i]);
     }
 }
 
@@ -79,7 +75,7 @@ void initUI(ScreenWrapper * s)
 
     /* Initialize the top section. */
     WINDOW * topWindow = newwin(topRows, s->cols, 0, 0);
-    addWindow(topWindow, s);
+    s->dealerWin = topWindow;
 
     /* 
      * The middle section is split into one window for each player, 
@@ -95,24 +91,24 @@ void initUI(ScreenWrapper * s)
 
     /* Set up and attach player windows. Handle the final player seperately. */
     for (size_t i = 0; i < MAX_PLAYERS - 1; i++) {
-        middleWin = newwin(middleRows, middleCols, totalRowsUsed, middleColsUsed);
+        s->playerWins[i] = newwin(middleRows, middleCols, totalRowsUsed, middleColsUsed);
         middleColsUsed += middleCols;
-
-        addWindow(middleWin, s);
     }
 
-    middleWin = newwin(middleRows, s->cols - middleColsUsed, totalRowsUsed, middleColsUsed);
-    addWindow(middleWin, s);
+    s->playerWins[MAX_PLAYERS - 1] = newwin(middleRows, s->cols - middleColsUsed, totalRowsUsed, middleColsUsed);
 
     totalRowsUsed += middleRows;
     
     WINDOW * bottomWindow = newwin(s->rows - totalRowsUsed, s->cols, totalRowsUsed, 0);
-    addWindow(bottomWindow, s);
+    s->inputWin = bottomWindow;
 }
 
 void drawBorders(ScreenWrapper * s)
 {
-    for (int i = 0; i < s->numWindows; i++) {
-        box(s->wins[i], 0, 0);
+    box(s->dealerWin, 0, 0);
+    box(s->inputWin, 0, 0);
+
+    for (int i = 0; i < MAX_PLAYERS; i++) {
+        box(s->playerWins[i], 0, 0);
     }
 }
