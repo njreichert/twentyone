@@ -9,6 +9,7 @@ ScreenWrapper * initScreenWrapper()
     ScreenWrapper * newScreen = calloc(1, sizeof(ScreenWrapper));
 
     initscr();
+    curs_set(0);
 
     /* Populate rows and cols. */
     getmaxyx(stdscr, newScreen->rows, newScreen->cols);
