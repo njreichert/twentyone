@@ -4,6 +4,7 @@
 #include "deck.h"
 #include "ui.h"
 #include "player.h"
+#include "io.h"
 
 int main(void)
 {
@@ -16,20 +17,39 @@ int main(void)
         players[i] = initPlayer(100);
     }
 
+    char buf[256] = "";
+
     ScreenWrapper * sc = initScreenWrapper();
     initUI(sc);
+
+    noecho();
 
     drawBorders(sc);
 
     refreshAll(sc);
-    for (size_t i = 0; i < sc->numWindows; i++)
+
+    mvwprintw(sc->dealerWin, 1, 1, "Dealer Window: %d\t%d", getmaxy(sc->dealerWin), getmaxx(sc->dealerWin));
+    refreshAll(sc);
+    
+    for (size_t i = 0; i < MAX_PLAYERS; i++)
     {
-        mvwprintw(sc->wins[0], i + 1, 1, "window %d: %d\t%d", i, getmaxy(sc->wins[i]), getmaxx(sc->wins[i]));
+        mvwprintw(sc->dealerWin, i + 2, 1, "Player %d: %d\t%d", i + 1, getmaxy(sc->playerWins[i]), getmaxx(sc->playerWins[i]));
         refreshAll(sc);
     }
 
+    const char * opt[2] = {"Option A", "Opt B"};
+
+    mvwprintw(sc->inputWin, MAX_PLAYERS + 2, 1, "Input Window: %d\t%d", getmaxy(sc->inputWin), getmaxx(sc->inputWin));
+    refreshAll(sc);
+    // char c = getInput(sc->inputWin, "test test test test test test test test test", opt, "ab");
+
+    size_t a = getString(sc->inputWin, buf, 15, "What is your name? ");
+    
+
     deinitScreenWrapper(sc);
 
+    
+    printf("%lu, %s\n", a, buf);
 
     getchar();
 
