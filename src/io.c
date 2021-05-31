@@ -3,6 +3,7 @@
 #include <curses.h>
 #include <string.h>
 #include <assert.h>
+#include "ui.h"
 #include "io.h"
 #include "defs.h"
 
@@ -12,6 +13,8 @@ size_t getString(WINDOW * w, char buffer[], size_t n, const char * question)
 {
     int c; /* wgetch has a couple of useful non-char (8-bit) characters for arrow keys or backspace, etc. */
     size_t i = 0;
+
+    resetWin(w);
 
     int centreRow = getmaxy(w) / 2;
     int padding = (getmaxx(w) - strlen(question) - n) / 2; /* TODO: Revisit. */
@@ -23,8 +26,6 @@ size_t getString(WINDOW * w, char buffer[], size_t n, const char * question)
     wattron(w, A_UNDERLINE);
     wprintw(w, "%*s", n, "");
     wrefresh(w);
-
-    
 
     cbreak();
     keypad(stdscr, TRUE);
@@ -47,6 +48,8 @@ size_t getString(WINDOW * w, char buffer[], size_t n, const char * question)
 
     wattroff(w, A_UNDERLINE);
     buffer[i] = '\0';
+
+    resetWin(w);
 
     return i;
 }
@@ -108,3 +111,4 @@ char getInput(WINDOW * w, const char * question, const char * options[], const c
 
     /* TODO: Check if stdin needs to be flushed, like in getline(). */
 }
+
