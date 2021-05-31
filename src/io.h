@@ -9,6 +9,8 @@
 /**
  * @brief Gets a String and places it into buffer
  * 
+ * NB: Assumes buffer has a size of n+1!
+ * 
  * @param w The window to display on.
  * @param buffer The buffer to place chars in.
  * @param n The max number of chars to get from the user.

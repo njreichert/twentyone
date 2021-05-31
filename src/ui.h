@@ -88,4 +88,18 @@ void initUI(ScreenWrapper * s);
  */
 void drawBorders(ScreenWrapper * s);
 
+/**
+ * @brief Erases contents of window, then redraws border.
+ * 
+ * @param w The window to reset.
+ */
+void resetWindow(WINDOW * w);
+
+/**
+ * @brief Resets the screen, adding relevant information.
+ * 
+ * @param s The ScreenWrapper containing the windows.
+ */
+void drawWindows(ScreenWrapper * s);
+
 #endif

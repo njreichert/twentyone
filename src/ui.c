@@ -10,6 +10,7 @@ ScreenWrapper * initScreenWrapper()
 
     initscr();
     curs_set(0);
+    noecho();
 
     /* Populate rows and cols. */
     getmaxyx(stdscr, newScreen->rows, newScreen->cols);
@@ -102,6 +103,9 @@ void initUI(ScreenWrapper * s)
     
     WINDOW * bottomWindow = newwin(s->rows - totalRowsUsed, s->cols, totalRowsUsed, 0);
     s->inputWin = bottomWindow;
+
+    drawBorders(s);
+    refreshAll(s);
 }
 
 void drawBorders(ScreenWrapper * s)
@@ -112,4 +116,15 @@ void drawBorders(ScreenWrapper * s)
     for (int i = 0; i < MAX_PLAYERS; i++) {
         box(s->playerWins[i], 0, 0);
     }
+}
+
+void resetWindow(WINDOW * w)
+{
+    werase(w);
+    box(w, 0, 0);
+}
+
+void drawWindows(ScreenWrapper * s)
+{
+    /* TODO */
 }

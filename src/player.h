@@ -4,8 +4,6 @@
 #include "deck.h"
 #include "defs.h"
 
-#define NAME_LEN 32
-
 typedef enum PlayerStatus {
     HIT,
     STAND,
