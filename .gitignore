@@ -51,5 +51,5 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-# VSCode-related config files.
-.vscode/*
+# # VSCode-related config files.
+# .vscode/*

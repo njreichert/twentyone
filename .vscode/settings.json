@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "stdlib.h": "c",
+        "ui.h": "c",
+        "curses.h": "c",
+        "deck.h": "c",
+        "player.h": "c",
+        "stdio.h": "c"
+    }
+}
