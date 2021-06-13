@@ -43,7 +43,7 @@ int main(void)
     refreshAll(sc);
     // char c = getInput(sc->inputWin, "test test test test test test test test test", opt, "ab");
 
-    size_t a = getString(sc->inputWin, buf, 15, "What is your name? ");
+    size_t a = getString(sc, buf, 15, "What is your name? ");
     
 
     deinitScreenWrapper(sc);

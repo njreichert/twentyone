@@ -9,23 +9,25 @@
 
 /* TODO: Fix any possible off-by-one errors with padding / cursor movement. */
 
-size_t getString(WINDOW * w, char buffer[], size_t n, const char * question)
+size_t getString(ScreenWrapper * s, char buffer[], size_t n, const char * question)
 {
+
+    WINDOW * ioWin = s->inputWin;
     int c; /* wgetch has a couple of useful non-char (8-bit) characters for arrow keys or backspace, etc. */
     size_t i = 0;
 
-    resetWin(w);
+    resetWindow(ioWin);
 
-    int centreRow = getmaxy(w) / 2;
-    int padding = (getmaxx(w) - strlen(question) - n) / 2; /* TODO: Revisit. */
+    int centreRow = getmaxy(ioWin) / 2;
+    int padding = (getmaxx(ioWin) - strlen(question) - n) / 2; /* TODO: Revisit. */
 
-    mvwprintw(w, centreRow, padding, "%s", question, n, "");
+    mvwprintw(ioWin, centreRow, padding, "%s", question, n, "");
 
-    int x = getcurx(w); /* We are going to manipulate the cursor ourselves. */
+    int x = getcurx(ioWin); /* We are going to manipulate the cursor ourselves. */
 
-    wattron(w, A_UNDERLINE);
-    wprintw(w, "%*s", n, "");
-    wrefresh(w);
+    wattron(ioWin, A_UNDERLINE);
+    wprintw(ioWin, "%*s", n, "");
+    wrefresh(ioWin);
 
     cbreak();
     keypad(stdscr, TRUE);
@@ -35,21 +37,21 @@ size_t getString(WINDOW * w, char buffer[], size_t n, const char * question)
         if (IS_BACKSPACE(c)) {
             if (i > 0) {
                 buffer[--i] = '\0'; /* Remove the latest char. */
-                mvwaddch(w, getcury(w), x + i, ' ');
+                mvwaddch(ioWin, getcury(ioWin), x + i, ' ');
             }
         /* All curses keypad chars have bit 8 set (2^8). Filter out all non-backspace chars. */
         } else if (i < n && !(c & KEY_CODE_YES)) {
             buffer[i++] = (char) c;
-            mvwprintw(w, getcury(w), x, "%.*s", n, buffer);
+            mvwprintw(ioWin, getcury(ioWin), x, "%.*s", n, buffer);
         }
 
-        wrefresh(w);
+        wrefresh(ioWin);
     }
 
-    wattroff(w, A_UNDERLINE);
+    wattroff(ioWin, A_UNDERLINE);
     buffer[i] = '\0';
 
-    resetWin(w);
+    resetWindow(ioWin);
 
     return i;
 }

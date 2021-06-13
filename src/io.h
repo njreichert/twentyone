@@ -17,7 +17,7 @@
  * @param question A string denoting a question to ask the user.
  * @returns the number of chars entered into buffer. 
  */
-size_t getString(WINDOW * w, char buffer[], size_t n, const char * question);
+size_t getString(ScreenWrapper * s, char buffer[], size_t n, const char * question);
 
 /**
  * @brief Prompts the user with options and gets a single key.
