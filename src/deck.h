@@ -158,4 +158,20 @@ void shuffleDeck(Deck * deck);
  */
 unsigned int getValueOfDeck(Deck * deck);
 
+/**
+ * @brief Get the char representing the given card's suit
+ * 
+ * @param c The card in question
+ * @returns The relevant suitChar
+ */
+char getSuitChar(Card * c);
+
+/**
+ * @brief Get the char representing the given card's rank
+ * 
+ * @param c The card in question
+ * @returns The relevant rankChar
+ */
+char getRankChar(Card * c);
+
 #endif

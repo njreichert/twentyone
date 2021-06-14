@@ -214,3 +214,13 @@ unsigned int getValueOfDeck(Deck * deck)
     return score;
     
 }
+
+char getSuitChar(Card * c)
+{
+    return suitChars[c->suit];
+}
+
+char getRankChar(Card * c)
+{
+    return rankChars[c->rank];
+}
