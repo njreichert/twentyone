@@ -5,11 +5,13 @@
 #include "defs.h"
 
 typedef enum PlayerStatus {
+    CUR_PLAYER,
     HIT,
     STAND,
     BUST,
     BROKE,
-    NO_STATUS
+    NOT_PLAYING,
+    NO_STATUS /* Probably haven't played yet. */
 } PlayerStatus;
 
 /**
