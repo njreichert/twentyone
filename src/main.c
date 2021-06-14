@@ -12,6 +12,7 @@ int main(void)
     getchar();
 
     Player * players[6] = {0};
+    Player * dealer = {0};
 
     for (size_t i = 0; i < MAX_PLAYERS; i++) {
         players[i] = initPlayer(100);
@@ -24,9 +25,7 @@ int main(void)
 
     noecho();
 
-    drawBorders(sc);
-
-    refreshAll(sc);
+    drawScreen(sc, players, dealer);
 
     mvwprintw(sc->dealerWin, 1, 1, "Dealer Window: %d\t%d", getmaxy(sc->dealerWin), getmaxx(sc->dealerWin));
     refreshAll(sc);
@@ -44,7 +43,8 @@ int main(void)
     // char c = getInput(sc->inputWin, "test test test test test test test test test", opt, "ab");
 
     size_t a = getString(sc, buf, 15, "What is your name? ");
-    
+
+    printCentred(sc->playerWins[2], 3, "test 123");
 
     deinitScreenWrapper(sc);
 

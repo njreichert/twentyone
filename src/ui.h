@@ -2,6 +2,7 @@
 #define UI_H
 
 #include <curses.h>
+#include "player.h"
 
 #define MAX_WINDOWS 8
 #define TOP_VERT 1.0/3.0
@@ -82,24 +83,29 @@ void refreshAll(ScreenWrapper * s);
 void initUI(ScreenWrapper * s);
 
 /**
- * @brief Draws inside borders on all windows.
+ * @brief Erase the given window, and redraw its borders.
  * 
- * @param s The ScreenWrapper containing the windows to place borders on.
+ * @param w The window to redraw.
  */
-void drawBorders(ScreenWrapper * s);
+void redrawWindowBorders(WINDOW * w);
 
 /**
- * @brief Erases contents of window, then redraws border.
+ * @brief Draws all elements on screen.
  * 
- * @param w The window to reset.
+ * @param s The screen to draw to.
+ * @param players The current list of players.
+ * @param dealer The dealer.
  */
-void resetWindow(WINDOW * w);
+void drawScreen(ScreenWrapper * s, Player * players[], Player * dealer);
 
 /**
- * @brief Resets the screen, adding relevant information.
+ * @brief Prints player Hand, money, bet, etc to the given window.
  * 
- * @param s The ScreenWrapper containing the windows.
+ * **To be implemented**
+ * 
+ * @param w The window to print to.
+ * @param p The player whose info is to be printed.
  */
-void drawWindows(ScreenWrapper * s);
+void printPlayerInfo(WINDOW * w, Player * p);
 
 #endif

@@ -33,4 +33,26 @@ size_t getString(ScreenWrapper * s, char buffer[], size_t n, const char * questi
  */
 char getInput(WINDOW * w, const char * question, const char * options[], const char * keys);
 
+/**
+ * @brief Prints a string centred to the given window.
+ * 
+ * @param w The window to print to.
+ * @param y The vertical position of the string.
+ * @param str The string to print.
+ * 
+ * @returns 1 on success, 0 on failure (likely if the string is larger than the window size).
+ */
+int printCentred(WINDOW * w, int y, const char * str);
+
+/**
+ * @brief Attempts to print the given deck to the window, in up to two lines.
+ * 
+ * @param w The window to print to.
+ * @param y The beginning vertical position.
+ * @param d The Deck to print.
+ * 
+ * @returns 1 on success, 0 on failure.
+ */
+int printHand(WINDOW * w, int y, Deck * d);
+
 #endif

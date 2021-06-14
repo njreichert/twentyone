@@ -1,8 +1,9 @@
-/* Included in ui.h: <curses.h> */
+/* Included in ui.h: <curses.h>, "player.h" */
 #include <stdlib.h>
 #include <assert.h>
 #include "ui.h"
 #include "defs.h"
+#include "io.h"
 
 ScreenWrapper * initScreenWrapper()
 {
@@ -56,7 +57,7 @@ void echoSet(ScreenWrapper * t, int isEnabled)
 void refreshAll(ScreenWrapper * s)
 {
     /* Start with stdscr */
-    refresh();
+    // refresh();
 
     wrefresh(s->dealerWin);
     wrefresh(s->inputWin);
@@ -89,8 +90,6 @@ void initUI(ScreenWrapper * s)
     int middleCols = s->cols / MAX_PLAYERS;
     int middleColsUsed = 0;
 
-    WINDOW * middleWin;
-
     /* Set up and attach player windows. Handle the final player seperately. */
     for (size_t i = 0; i < MAX_PLAYERS - 1; i++) {
         s->playerWins[i] = newwin(middleRows, middleCols, totalRowsUsed, middleColsUsed);
@@ -103,28 +102,34 @@ void initUI(ScreenWrapper * s)
     
     WINDOW * bottomWindow = newwin(s->rows - totalRowsUsed, s->cols, totalRowsUsed, 0);
     s->inputWin = bottomWindow;
+} /* Remember to draw the screen afterwards! */
 
-    drawBorders(s);
-    refreshAll(s);
-}
-
-void drawBorders(ScreenWrapper * s)
-{
-    box(s->dealerWin, 0, 0);
-    box(s->inputWin, 0, 0);
-
-    for (int i = 0; i < MAX_PLAYERS; i++) {
-        box(s->playerWins[i], 0, 0);
-    }
-}
-
-void resetWindow(WINDOW * w)
+void redrawWindowBorders(WINDOW * w)
 {
     werase(w);
     box(w, 0, 0);
+    wrefresh(w);
 }
 
-void drawWindows(ScreenWrapper * s)
+void drawScreen(ScreenWrapper * s, Player * players[], Player * dealer)
 {
-    /* TODO */
+    /* Draw Dealer Window, Input Window, then Player Windows. */
+    redrawWindowBorders(s->dealerWin);
+    printPlayerInfo(s->dealerWin, dealer);
+
+    redrawWindowBorders(s->inputWin);
+
+    for (size_t i = 0; i < MAX_PLAYERS; i++) {
+        redrawWindowBorders(s->playerWins[i]);
+        if (players[i]->status != NOT_PLAYING) {
+            if (players[i]->status == CUR_PLAYER) {
+                attron(A_BOLD);
+            }
+            printPlayerInfo(s->playerWins[i], players[i]);
+            attroff(A_BOLD); /* TODO: Does this need to be in an if statement like above? */
+        }
+    }
+
+    refreshAll(s);
 }
+
