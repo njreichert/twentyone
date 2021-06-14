@@ -5,6 +5,7 @@
         "curses.h": "c",
         "deck.h": "c",
         "player.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "defs.h": "c"
     }
 }
