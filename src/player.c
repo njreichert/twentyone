@@ -7,7 +7,7 @@ Player * initPlayer(unsigned int startingBalance)
     /* TODO: Sanity-check the zero-ness of this. */
     Player * newPlayer = calloc(1, sizeof(Player));
 
-    newPlayer->status = NO_STATUS;
+    newPlayer->status = NOT_PLAYING;
     newPlayer->balance = startingBalance;
     newPlayer->hand = initDeck(0);
 
