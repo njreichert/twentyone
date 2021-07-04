@@ -39,7 +39,7 @@ typedef struct Player {
  * @param startingBalance The amount of mney the player should start with. 
  * @returns a pointer to the player. 
  */
-Player * initPlayer(unsigned int startingBalance);
+Player * initPlayer(unsigned int startingBalance, char * name);
 
 
 /**
