@@ -12,7 +12,11 @@
 #define BUF_LEN 32
 
 /* CARD RELATED DEFS */
+/* Maximum size of a card name, such as "10d " (10 of Diamonds). */
 #define MAX_CARD_STR 4
+
+/* How many lines to use for printing hands. */
+#define NUM_CARD_LINES 2
 
 /* STRING LITERALS */
 #define STR_NUM_PLAYERS "How many players? (Max 4) "

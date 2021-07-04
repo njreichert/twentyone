@@ -115,7 +115,7 @@ int printCentred(WINDOW * w, int y, const char * str)
 {
     int padding = getmaxx(w) - strnlen(str, getmaxx(w));
 
-    if (strlen(str) > getmaxx(w)) {
+    if (strlen(str) > (size_t) getmaxx(w)) {
         return 0;
     }
 
@@ -124,7 +124,6 @@ int printCentred(WINDOW * w, int y, const char * str)
     }
 
     mvwprintw(w, y, padding / 2, "%s", str);
-
     wrefresh(w);
 
     return 1;
@@ -150,50 +149,55 @@ void printPlayerInfo(WINDOW * w, Player * p)
 
 int printHand(WINDOW * w, int y, Deck * d)
 {
-    size_t i = 0;
     Card * currentCard = d->top;
 
     /* The lines are stored here before printing. */
-    char buf[2][BUF_LEN + 1] = {"", ""};
-    size_t buflen[2] = {0};
+    char buf[NUM_CARD_LINES][BUF_LEN + 1] = {"", ""};
+    size_t buflen[NUM_CARD_LINES] = {0};
 
     size_t currentBuf = 0;
 
     char currentCardStr[MAX_CARD_STR + 1] = "";
 
-    while (i < d->size) {
+    while (currentCard != NULL) {
 
         char currentRankChar = getRankChar(currentCard);
         char currentSuitChar = getSuitChar(currentCard);
 
         /* Check if the given line will overflow after another card (worst case) */
-        if (buflen[currentBuf] + MAX_CARD_STR > getmaxx(w) - 2) {
+        if (buflen[currentBuf] + MAX_CARD_STR > (size_t) getmaxx(w) - 2) {
             if (currentBuf == 0) {
                 currentBuf = 1;
             } else {
                 return 0; /* Failure */
             }
         }
-        /* TODO: ADD SPACING, and other things to this. THIS NEEDS TO BE FINISHED FIRST. */
 
         /* 
-         * Certain card types (face cards, etc) need special treatment.
-         * this is determined by the placeholder value of 'x'.
+         * Placeholder values ('x') indicate numerical card values.
          */
         if (currentRankChar != 'x') {
-            snprintf(currentCardStr, "%c%c", BUF_LEN, currentRankChar, currentSuitChar);
+            snprintf(currentCardStr, BUF_LEN, "%c%c", currentRankChar, currentSuitChar);
         } else {
-            snprintf(currentCardStr, "%u%c", BUF_LEN, currentCard->rank + 1, currentSuitChar);
+            snprintf(currentCardStr, BUF_LEN, "%u%c", currentCard->rank + 1, currentSuitChar);
+        }
+
+        /* Add a space only if the current card is not the last. */
+        if (currentCard->next != NULL) {
+            /* In theory this should never exceed a strlen of MAX_CARD_STR. */
+            strcat(currentCardStr, " ");
         }
 
         strncat(buf[currentBuf], currentCardStr, MAX_CARD_STR);
         buflen[currentBuf] += strnlen(currentCardStr, MAX_CARD_STR);
 
-        /* Add a space only if the current card is not the last. */
-        if (i < d->size - 1) printf(" ");
-
         currentCard = currentCard->next;
-        i++;
-        
     }
+
+    for (size_t i = 0; i < NUM_CARD_LINES; i++)
+    {
+        mvwprintw(w, y, 1, buf[0]);
+    }
+
+    return 1;
 }
