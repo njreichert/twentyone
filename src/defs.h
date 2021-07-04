@@ -1,6 +1,9 @@
 #ifndef DEFS_H
 #define DEFS_H
 
+/* DEBUG DEFS */
+#define DEBUG /* Define when using GDB. */
+
 /* PLAYER RELATED DEFS */
 #define NAME_LEN 32
 #define MAX_PLAYERS 4
