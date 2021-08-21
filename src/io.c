@@ -139,12 +139,12 @@ void printPlayerInfo(WINDOW * w, Player * p)
     if (p->currentBet != 0) {
         snprintf(buf, BUF_LEN, "$%u (Betting: $%u)", p->balance, p->currentBet);
     } else {
-        snprintf(buf, BUF_LEN, "$%u", 15);
+        snprintf(buf, BUF_LEN, "$%u", p->balance);
     }
 
     printCentred(w, 2, buf);
 
-    printHand(w, getmaxy(w) - 3, p->hand);
+    printHand(w, 4, p->hand); /* TODO: get rid of this magic number! */
 
 }
 
@@ -184,18 +184,24 @@ int printHand(WINDOW * w, int y, Deck * d)
         }
 
         /* We already checked that the string doesn't run past its buffer. */
-        if (i < d->size - 1) {
-            strcat(buf[currentBuf], " ");
-        }
-
         strcat(buf[currentBuf], currentCardStr);
 
+        if (i < d->size - 1) {
+            strcat(buf[currentBuf], " ");
+            buflen[currentBuf] += strlen(currentCardStr) + 1;
+        } else {
+            buflen[currentBuf] += strlen(currentCardStr);
+        }
+
+        currentCard = currentCard->next;
         i++;
     }
 
-    mvwprintw(w, y, WINDOW_PADDING, "%s", buf[0]);
-    mvwprintw(w, y + 1, WINDOW_PADDING, "%s", buf[1]);
+    /* X value derived empirically. */
+    mvwprintw(w, y, WINDOW_PADDING + 1, "%s", buf[0]);
+    mvwprintw(w, y + 1, WINDOW_PADDING + 1, "%s", buf[1]);
     
+    wrefresh(w);
 
     return 1;
 }

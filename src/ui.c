@@ -123,7 +123,7 @@ void drawScreen(ScreenWrapper * s, Player * players[], Player * dealer)
         redrawWindowBorders(s->playerWins[i]);
         if (players[i]->status != NOT_PLAYING) {
             if (players[i]->status == CUR_PLAYER) {
-                attron(A_BOLD);
+                attron(A_BOLD); /* TODO: Doesn't seem to work on Windows Terminal 1.9.1942.0? */
             }
             printPlayerInfo(s->playerWins[i], players[i]);
             attroff(A_BOLD); /* TODO: Does this need to be in an if statement like above? */
