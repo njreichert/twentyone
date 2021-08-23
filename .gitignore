@@ -54,3 +54,4 @@ dkms.conf
 # # VSCode-related config files.
 # .vscode/*
 *.log
+.vscode/settings.json

@@ -6,6 +6,7 @@
         "deck.h": "c",
         "player.h": "c",
         "stdio.h": "c",
-        "defs.h": "c"
+        "defs.h": "c",
+        "type_traits": "cpp"
     }
 }
