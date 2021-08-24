@@ -57,6 +57,25 @@ size_t getString(ScreenWrapper * s, char buffer[], size_t n, const char * questi
     return i;
 }
 
+unsigned int getNum(ScreenWrapper * s, unsigned int max, char * question)
+{
+    unsigned int num = 0;
+
+    do {
+        char buf[BUF_LEN] = "";
+        
+        getString(s, buf, MAX_STR_INPUT, question);
+
+        /* TODO: sscanf() returns one when you input a string that doesn't have numbers in it? */
+        if (!sscanf(buf, "%u", &num)) { 
+            continue;
+        }
+
+    } while (num > max);
+
+    return num;
+}
+
 char getInput(WINDOW * w, const char * question, const char * options[], const char * keys)
 {
     /* TODO: revisit */

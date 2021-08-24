@@ -11,6 +11,7 @@
 #define MAX_OPTION_SIZE 8
 #define BUF_LEN 32
 #define WINDOW_PADDING 1
+#define MAX_STR_INPUT 16
 
 /* CARD RELATED DEFS */
 #define MAX_CARD_STR 4
