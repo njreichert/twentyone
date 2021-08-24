@@ -111,7 +111,7 @@ void redrawWindowBorders(WINDOW * w)
     wrefresh(w);
 }
 
-void drawScreen(ScreenWrapper * s, Player * players[], Player * dealer)
+void drawScreen(ScreenWrapper * s, Player * players[], size_t n, Player * dealer)
 {
     /* Draw Dealer Window, Input Window, then Player Windows. */
     redrawWindowBorders(s->dealerWin);
@@ -119,7 +119,7 @@ void drawScreen(ScreenWrapper * s, Player * players[], Player * dealer)
 
     redrawWindowBorders(s->inputWin);
 
-    for (size_t i = 0; i < MAX_PLAYERS; i++) {
+    for (size_t i = 0; i < n; i++) {
         redrawWindowBorders(s->playerWins[i]);
         if (players[i]->status != NOT_PLAYING) {
             if (players[i]->status == CUR_PLAYER) {

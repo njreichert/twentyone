@@ -94,9 +94,10 @@ void redrawWindowBorders(WINDOW * w);
  * 
  * @param s The screen to draw to.
  * @param players The current list of players.
+ * @param n The number of players to draw.
  * @param dealer The dealer.
  */
-void drawScreen(ScreenWrapper * s, Player * players[], Player * dealer);
+void drawScreen(ScreenWrapper * s, Player * players[], size_t n, Player * dealer);
 
 /**
  * @brief Prints player Hand, money, bet, etc to the given window.
