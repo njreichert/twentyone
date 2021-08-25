@@ -21,3 +21,15 @@ void deinitPlayer(Player * player)
     deinitDeck(player->hand);
     free(player);
 }
+
+int allPlayersBroke(Player * p[], size_t n)
+{
+    for (size_t i = 0; i < n; i++) {
+        if (p[n]->balance > 0) {
+            return 0;
+        }
+    }
+
+    return 1;
+    
+}

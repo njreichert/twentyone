@@ -52,4 +52,15 @@ Player * initPlayer(unsigned int startingBalance, char * name);
  */
 void deinitPlayer(Player * player);
 
+/**
+ * @brief Checks if all players have zero dollars.
+ * 
+ * @param p The list of players to check.
+ * @param n The numebr of players to check
+ * 
+ * @returns a non-zero value if all players are broke.
+ * 
+ */
+int allPlayersBroke(Player * p[], size_t n);
+
 #endif
