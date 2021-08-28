@@ -76,7 +76,7 @@ unsigned int getNum(ScreenWrapper * s, unsigned int max, char * question)
     return num;
 }
 
-char getInput(WINDOW * w, const char * question, const char * options[], const char * keys)
+int getInput(WINDOW * w, const char * question, const char * options[], const char * keys)
 {
     /* TODO: revisit */
     assert(strlen(keys) == NUM_OPTIONS);
@@ -119,15 +119,22 @@ char getInput(WINDOW * w, const char * question, const char * options[], const c
     mvwprintw(w, centreRow + 1, 1, "%*s%s", padding, "", optionBuffer);
     wrefresh(w);
 
-    /** Set up stdscr for one char, no echo input. */
-    cbreak();
-    char c = getch();
-    nocbreak();
-    
+    /* TODO: Should I verify that this halts? */
+    while (1) {
+        /* Set up stdscr for one char, no echo input. */
+        cbreak();
+        int c = getch();
+        nocbreak();
 
-    return c;
+        for (size_t i = 0; i < NUM_OPTIONS; i++) {
+            if (c == keys[i]) {
+                return i;
+            }
+        }
+    }
 
-    /* TODO: Check if stdin needs to be flushed, like in getline(). */
+    return 0;
+    /* TODO: Check if stdin needs to be flushed, like in getString(). */
 }
 
 int printCentred(WINDOW * w, int y, const char * str)

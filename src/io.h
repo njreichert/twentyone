@@ -31,7 +31,7 @@ size_t getString(ScreenWrapper * s, char buffer[], size_t n, const char * questi
  * @param keys A string denoting each key to be pressed. 
  * @returns the key code of the char pressed.
  */
-char getInput(WINDOW * w, const char * question, const char * options[], const char * keys);
+int getInput(WINDOW * w, const char * question, const char * options[], const char * keys);
 
 /**
  * @brief Gets a number from the user.
