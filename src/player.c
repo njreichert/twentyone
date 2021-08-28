@@ -29,7 +29,16 @@ int allPlayersBroke(Player * p[], size_t n)
             return 0;
         }
     }
-
     return 1;
-    
+}
+
+int anyPlayersPlaying(Player * p[], size_t n)
+{
+    for (size_t i = 0; i < n; i++)
+    {
+        if (p[n]->status == PLAYING) {
+            return 1;
+        }
+    }
+    return 0;
 }

@@ -6,12 +6,13 @@
 
 typedef enum PlayerStatus {
     CUR_PLAYER,
-    HIT,
+    PLAYING,
     STAND,
     BUST,
     BROKE,
-    NOT_PLAYING,
-    NO_STATUS /* Probably haven't played yet. */
+    BLACKJACK, /* 21 via initial deal. */
+    TWENTY_ONE, /* 21 via hitting. */
+    NOT_PLAYING, /* Probably haven't played yet. */
 } PlayerStatus;
 
 /**
@@ -62,5 +63,14 @@ void deinitPlayer(Player * player);
  * 
  */
 int allPlayersBroke(Player * p[], size_t n);
+
+/**
+ * @brief Checks if any players are not broke, bust, or standing.
+ * 
+ * @param p An array of Players.
+ * @param n The number of players to check.
+ * @returns a non-zero value if any players have status == PLAYING.
+ */
+int anyPlayersPlaying(Player * p[], size_t n);
 
 #endif
