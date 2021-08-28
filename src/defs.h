@@ -2,14 +2,14 @@
 #define DEFS_H
 
 /* PLAYER RELATED DEFS */
-#define NAME_LEN 32
+#define NAME_LEN 16
 #define MAX_PLAYERS 4
 #define STARTING_BAL 100
 
 /* WINDOW AND IO RELATED DEFS */
 #define NUM_OPTIONS 2
 #define MAX_OPTION_SIZE 8
-#define BUF_LEN 32
+#define BUF_LEN 64
 #define WINDOW_PADDING 1
 #define MAX_STR_INPUT 16
 
