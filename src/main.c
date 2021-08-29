@@ -71,7 +71,7 @@ int main(void)
             }
         }
         
-        while (!anyPlayersPlaying(players, numPlayers)) {
+        while (anyPlayersPlaying(players, numPlayers)) {
             for (size_t i = 0; i < numPlayers; i++) {
                 if (players[i]->status == PLAYING) {
                     dealDialog(players[i], deck, sc);
