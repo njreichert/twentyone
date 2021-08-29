@@ -25,7 +25,7 @@ void deinitPlayer(Player * player)
 int allPlayersBroke(Player * p[], size_t n)
 {
     for (size_t i = 0; i < n; i++) {
-        if (p[n]->balance > 0) {
+        if (p[i]->balance > 0) {
             return 0;
         }
     }
