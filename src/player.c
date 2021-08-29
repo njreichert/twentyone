@@ -36,7 +36,7 @@ int anyPlayersPlaying(Player * p[], size_t n)
 {
     for (size_t i = 0; i < n; i++)
     {
-        if (p[n]->status == PLAYING) {
+        if (p[i]->status == PLAYING) {
             return 1;
         }
     }

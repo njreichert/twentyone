@@ -9,7 +9,7 @@ const char rankChars[] = "AxxxxxxxxxJQK"; /* Ace, placeholders, Jack, Queen, Kin
 
 Deck * initDeck(int fillCards)
 {
-    Deck * newDeck = malloc(sizeof(Deck));
+    Deck * newDeck = calloc(1, sizeof(Deck));
 
     newDeck->size = 0;
 
@@ -205,6 +205,8 @@ unsigned int getValueOfDeck(Deck * deck)
         if (cardValue == 1) numAces++;
 
         score += cardValue;
+
+        currentCard = currentCard->next;
     }
 
     while (numAces-- > 0) {
