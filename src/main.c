@@ -46,7 +46,7 @@ int main(void)
 
         for (size_t i = 0; i < numPlayers; i++) {
             if (players[i]->status != BROKE) {
-                betDialog(players[i], sc); /* TODO */
+                betDialog(players[i], sc);
             }
         }
 
@@ -62,6 +62,7 @@ int main(void)
             }
         }
 
+        /* Check for Blackjacks. */
         for (size_t i = 0; i < numPlayers; i++) {
             if (getValueOfDeck(players[i]->hand) == 21) {
                 snprintf(printBuf, BUF_LEN, "%s has BLACKJACK!", players[i]->name);
@@ -73,7 +74,7 @@ int main(void)
         while (!anyPlayersPlaying(players, numPlayers)) {
             for (size_t i = 0; i < numPlayers; i++) {
                 if (players[i]->status == PLAYING) {
-                    dealDialog(players[i], deck, sc); /* TODO */
+                    dealDialog(players[i], deck, sc);
 
                     if (getValueOfDeck(players[i]->hand) == 21) {
                         snprintf(printBuf, BUF_LEN, "%s has 21!", players[i]->name);
@@ -89,12 +90,16 @@ int main(void)
                 }
             }
         }
+
+        /* Deal cards to dealer. */
+        while (getValueOfDeck(dealer->hand) < SOFT_STOP) {
+            dealCard(deck, dealer->hand, 1);
+        }
         
         /* Handle Bets and return cards to deck. */
         for (size_t i = 0; i < numPlayers; i++) {
             /* Bust / Loss */
-            betHandler(players[i], dealer);
-
+            PostMatchDialog(sc, players[i], getRoundOutcome(players[i], dealer));
             dealCard(players[i]->hand, deck, players[i]->hand->size);
         }
         

@@ -70,6 +70,7 @@ WinState getRoundOutcome(Player * p, Player * dealer)
 
 void PostMatchDialog(ScreenWrapper * sc, Player * p, WinState w)
 {
+    unsigned int betGains;
     char buf[BUF_LEN + 1] = "";
     switch (w) {
         case LOSS:
@@ -82,7 +83,7 @@ void PostMatchDialog(ScreenWrapper * sc, Player * p, WinState w)
             break;
         
         case WIN:
-            unsigned int betGains = (unsigned int) (PAYOUT * p->currentBet);
+            betGains = (unsigned int) (PAYOUT * p->currentBet);
             snprintf(buf, BUF_LEN, "%s wins and gains %u!", p->name, betGains);
             p->balance += betGains;
             break;
