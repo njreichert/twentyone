@@ -42,3 +42,12 @@ void dealDialog(Player * p, Deck * src, ScreenWrapper * s);
  * @returns the WinState of the round.
  */
 WinState getRoundOutcome(Player * p, Player * dealer);
+
+/**
+ * @brief Updates bets and balances depending on the win status of the given player.
+ * 
+ * @param sc The ScreenWrapper to display to. 
+ * @param p The Player in question.
+ * @param w The WinState of the player.
+ */
+void PostMatchDialog(ScreenWrapper * sc, Player * p, WinState w);

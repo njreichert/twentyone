@@ -16,6 +16,9 @@
 /* CARD RELATED DEFS */
 #define MAX_CARD_STR 4
 
+/* GAME RELATED DEFS */
+#define PAYOUT 1.5 /* 3 to 2 */
+
 /* STRING LITERALS */
 #define STR_NUM_PLAYERS "How many players? (Max 4) "
 

@@ -65,3 +65,31 @@ WinState getRoundOutcome(Player * p, Player * dealer)
 
     return outcome;
 }
+
+void PostMatchDialog(ScreenWrapper * sc, Player * p, WinState w)
+{
+    char buf[BUF_LEN + 1] = "";
+    switch (w) {
+        case LOSS:
+            snprintf(buf, BUF_LEN, "%s lost %u!", p->name, p->currentBet);
+            break;
+        
+        case PUSH:
+            snprintf(buf, BUF_LEN, "%s pushes and keeps their bet!", p->name);
+            p->balance += p->currentBet;
+            break;
+        
+        case WIN:
+            unsigned int betGains = (unsigned int) (PAYOUT * p->currentBet);
+            snprintf(buf, BUF_LEN, "%s wins and gains %u!", p->name, betGains);
+            p->balance += betGains;
+            break;
+
+        default:
+            snprintf(buf, BUF_LEN, "The match is still running!");
+            break;
+    }
+
+    textDialog(buf, sc);
+    p->currentBet = 0;
+}
