@@ -17,10 +17,10 @@ void betDialog(Player * p, ScreenWrapper * s)
 
 void textDialog(char * str, ScreenWrapper * sc)
 {
-    redrawWindowBorders(s->inputWin);
+    redrawWindowBorders(sc->inputWin);
     
-    printCentred(sc->inputWin, (getmaxy(s->inputWin) / 2), str);
-    printCentred(sc->inputWin, (getmaxy(s->inputWin) / 2) + 1, ANYKEY);
+    printCentred(sc->inputWin, (getmaxy(sc->inputWin) / 2), str);
+    printCentred(sc->inputWin, (getmaxy(sc->inputWin) / 2) + 1, ANYKEY);
 
     wgetch(sc->inputWin);
 }
