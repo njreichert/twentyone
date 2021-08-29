@@ -12,6 +12,7 @@
 #define BUF_LEN 64
 #define WINDOW_PADDING 1
 #define MAX_STR_INPUT 16
+#define ANYKEY "Press any key to continue..."
 
 /* CARD RELATED DEFS */
 #define MAX_CARD_STR 4

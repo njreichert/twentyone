@@ -18,7 +18,10 @@ void betDialog(Player * p, ScreenWrapper * s)
 void textDialog(char * str, ScreenWrapper * s)
 {
     redrawWindowBorders(s->inputWin);
+    
     printCentred(s->inputWin, (getmaxy(s->inputWin) / 2), str);
+    printCentred(s->inputWin, (getmaxy(s->inputWin) / 2) + 1, ANYKEY);
+
     getch();
 }
 
@@ -43,7 +46,6 @@ WinState getRoundOutcome(Player * p, Player * dealer)
 
     unsigned int dealerVal = getValueOfDeck(dealer->hand);
     unsigned int playerVal = getValueOfDeck(p->hand);
-
 
     if (playerVal > 21) {
         outcome = LOSS;
