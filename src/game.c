@@ -37,7 +37,7 @@ void dealDialog(Player * p, Deck * src, ScreenWrapper * s)
     }
 }
 
-void betHandler(Player * p, Player * dealer)
+WinState getRoundOutcome(Player * p, Player * dealer)
 {
     WinState outcome = LOSS; /* By default. */
 
@@ -62,5 +62,6 @@ void betHandler(Player * p, Player * dealer)
             outcome = PUSH;
         }
     }
-    /* TODO */
+
+    return outcome;
 }

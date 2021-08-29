@@ -34,9 +34,11 @@ void textDialog(char * str, ScreenWrapper * s);
 void dealDialog(Player * p, Deck * src, ScreenWrapper * s);
 
 /**
- * @brief Updates player balances based on bets and round outcomes.
+ * @brief Determines whether a player has won against the dealer.
  * 
  * @param p The Player in question.
  * @param dealer The dealer to compare against.
+ * 
+ * @returns the WinState of the round.
  */
-void betHandler(Player * p, Player * dealer);
+WinState getRoundOutcome(Player * p, Player * dealer);
