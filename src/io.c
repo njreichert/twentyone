@@ -123,7 +123,7 @@ int getInput(WINDOW * w, const char * question, const char * options[], const ch
     while (1) {
         /* Set up stdscr for one char, no echo input. */
         cbreak();
-        int c = getch();
+        int c = wgetch(w);
         nocbreak();
 
         for (size_t i = 0; i < NUM_OPTIONS; i++) {

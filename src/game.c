@@ -15,21 +15,21 @@ void betDialog(Player * p, ScreenWrapper * s)
     p->balance -= bet;
 }
 
-void textDialog(char * str, ScreenWrapper * s)
+void textDialog(char * str, ScreenWrapper * sc)
 {
     redrawWindowBorders(s->inputWin);
     
-    printCentred(s->inputWin, (getmaxy(s->inputWin) / 2), str);
-    printCentred(s->inputWin, (getmaxy(s->inputWin) / 2) + 1, ANYKEY);
+    printCentred(sc->inputWin, (getmaxy(s->inputWin) / 2), str);
+    printCentred(sc->inputWin, (getmaxy(s->inputWin) / 2) + 1, ANYKEY);
 
-    getch();
+    wgetch(sc->inputWin);
 }
 
 void dealDialog(Player * p, Deck * src, ScreenWrapper * s)
 {
     char buf[BUF_LEN + 1] = "";
     const char * options[] = {"Hit", "Stand"};
-    const char optionChars[] = {'h', 's'};
+    const char optionChars[] = "hs";
     
     snprintf(buf, BUF_LEN, "%s has a score of %u. Hit or Stand?", p->name, getValueOfDeck(p->hand));
     
