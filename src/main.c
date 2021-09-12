@@ -112,7 +112,15 @@ int main(void)
             /* Bust / Loss */
             PostMatchDialog(sc, players[i], getRoundOutcome(players[i], dealer));
             dealCard(players[i]->hand, deck, players[i]->hand->size);
+
+            if (players[i]->balance > 0) {
+                players[i]->status = PLAYING;
+            }
         }
+
+        dealCard(dealer->hand, deck, dealer->hand->size);
+
+
         
     }
 
