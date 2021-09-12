@@ -26,4 +26,12 @@
 /* STRING LITERALS */
 #define STR_NUM_PLAYERS "How many players? (Max 4) "
 
+/* COLOUR DEFS */
+#define MAIN_PAIR 1
+/* Colours RGB Channels are from [0, 1000]. */
+#define GREEN_R 0
+#define GREEN_G 484
+#define GREEN_B 281
+#define WHITE_RGB 1000
+
 #endif

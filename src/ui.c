@@ -69,6 +69,12 @@ void refreshAll(ScreenWrapper * s)
 
 void initUI(ScreenWrapper * s)
 {
+
+    start_color();
+
+    init_color(COLOR_GREEN, GREEN_R, GREEN_G, GREEN_B);
+    init_color(COLOR_WHITE, WHITE_RGB, WHITE_RGB, WHITE_RGB);
+
     /* Running total for bottomWindow. */
     int totalRowsUsed = 0;
 
@@ -102,11 +108,20 @@ void initUI(ScreenWrapper * s)
     
     WINDOW * bottomWindow = newwin(s->rows - totalRowsUsed, s->cols, totalRowsUsed, 0);
     s->inputWin = bottomWindow;
+
+    init_pair(MAIN_PAIR, COLOR_WHITE, COLOR_GREEN);
+
+    bkgdset(COLOR_PAIR(MAIN_PAIR));
+
 } /* Remember to draw the screen afterwards! */
 
 void redrawWindowBorders(WINDOW * w)
 {
     werase(w);
+    
+    wattron(w, COLOR_PAIR(MAIN_PAIR));
+    wbkgd(w, COLOR_PAIR(MAIN_PAIR));
+
     box(w, 0, 0);
     wrefresh(w);
 }
