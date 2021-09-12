@@ -34,14 +34,14 @@ size_t getString(ScreenWrapper * s, char buffer[], size_t n, const char * questi
 int getInput(WINDOW * w, const char * question, const char * options[], const char * keys);
 
 /**
- * @brief Gets a number from the user.
+ * @brief Gets an integer from the user in the range (0, max].
  * 
  * @param s the Screen to display on.
  * @param max The max number to allow the user to input.
  * @param question A string denoting a question to ask the user.
  * @returns a number.
  */
-unsigned int getNum(ScreenWrapper * s, unsigned int max, char * question);
+unsigned int getNum(ScreenWrapper * s, int max, char * question);
 
 /**
  * @brief Prints a string centred to the given window.

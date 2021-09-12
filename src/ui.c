@@ -113,6 +113,8 @@ void redrawWindowBorders(WINDOW * w)
 
 void drawScreen(ScreenWrapper * s, Player * players[], size_t n, Player * dealer)
 {
+
+    /* TODO: maybe add a wrapper function that adds a small delay for UX? */
     /* Draw Dealer Window, Input Window, then Player Windows. */
     redrawWindowBorders(s->dealerWin);
     printPlayerInfo(s->dealerWin, dealer);

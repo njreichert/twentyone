@@ -44,6 +44,10 @@ int main(void)
     /* Main game loop */
     while (!allPlayersBroke(players, numPlayers)) {
 
+        shuffleDeck(deck);
+
+        drawScreen(sc, players, numPlayers, dealer);
+
         for (size_t i = 0; i < numPlayers; i++) {
             if (players[i]->status != BROKE) {
                 betDialog(players[i], sc);
@@ -62,6 +66,8 @@ int main(void)
             }
         }
 
+        drawScreen(sc, players, numPlayers, dealer);
+
         /* Check for Blackjacks. */
         for (size_t i = 0; i < numPlayers; i++) {
             if (getValueOfDeck(players[i]->hand) == 21) {
@@ -74,7 +80,11 @@ int main(void)
         while (anyPlayersPlaying(players, numPlayers)) {
             for (size_t i = 0; i < numPlayers; i++) {
                 if (players[i]->status == PLAYING) {
+                    drawScreen(sc, players, numPlayers, dealer);
+
                     dealDialog(players[i], deck, sc);
+
+                    drawScreen(sc, players, numPlayers, dealer);
 
                     if (getValueOfDeck(players[i]->hand) == 21) {
                         snprintf(printBuf, BUF_LEN, "%s has 21!", players[i]->name);
@@ -94,6 +104,7 @@ int main(void)
         /* Deal cards to dealer. */
         while (getValueOfDeck(dealer->hand) < SOFT_STOP) {
             dealCard(deck, dealer->hand, 1);
+            drawScreen(sc, players, numPlayers, dealer);
         }
         
         /* Handle Bets and return cards to deck. */

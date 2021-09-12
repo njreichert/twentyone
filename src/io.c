@@ -57,23 +57,20 @@ size_t getString(ScreenWrapper * s, char buffer[], size_t n, const char * questi
     return i;
 }
 
-unsigned int getNum(ScreenWrapper * s, unsigned int max, char * question)
+unsigned int getNum(ScreenWrapper * s, int max, char * question) /* TODO: fix signedness of max. */
 {
-    unsigned int num = 0;
+    int num = 0;
 
     do {
         char buf[BUF_LEN] = "";
-        
         getString(s, buf, MAX_STR_INPUT, question);
 
-        /* TODO: sscanf() returns one when you input a string that doesn't have numbers in it? */
-        if (!sscanf(buf, "%u", &num)) { 
-            continue;
-        }
+        num = atoi(buf);
+    } while (num <= 0 || num > max);
 
-    } while (num > max);
+    /* Safe to typecast here as it is guaranteed to be a positive number. */
 
-    return num;
+    return (unsigned int) num;
 }
 
 int getInput(WINDOW * w, const char * question, const char * options[], const char * keys)
@@ -223,11 +220,8 @@ int printHand(WINDOW * w, int y, Deck * d)
         i++;
     }
 
-    /* X value derived empirically. */
-    mvwprintw(w, y, WINDOW_PADDING + 1, "%s", buf[0]);
-    mvwprintw(w, y + 1, WINDOW_PADDING + 1, "%s", buf[1]);
-    
-    wrefresh(w);
+    printCentred(w, y, buf[0]);
+    printCentred(w, y+1, buf[1]);
 
     return 1;
 }

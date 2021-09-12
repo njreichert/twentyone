@@ -7,7 +7,7 @@
 void betDialog(Player * p, ScreenWrapper * s)
 {
     char buf[BUF_LEN + 1] = "";
-    snprintf(buf, BUF_LEN, "%s has %u. How much do you want to bet? ", p->name, p->balance);
+    snprintf(buf, BUF_LEN, "%s has $%u. How much do you want to bet? ", p->name, p->balance);
 
     unsigned int bet = getNum(s, p->balance, buf);
 
