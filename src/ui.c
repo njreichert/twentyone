@@ -147,6 +147,12 @@ void drawScreen(ScreenWrapper * s, Player * players[], size_t n, Player * dealer
         }
     }
 
+    /* Put placeholders in unused windows. */
+    for (size_t i = n; i < MAX_PLAYERS; i++) {
+        redrawWindowBorders(s->playerWins[i]);
+    }
+    
+
     refreshAll(s);
 }
 
