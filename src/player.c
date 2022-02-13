@@ -11,7 +11,7 @@ Player * initPlayer(unsigned int startingBalance, char * name)
     newPlayer->status = NOT_PLAYING;
     newPlayer->balance = startingBalance;
     newPlayer->hand = initDeck(0);
-    snprintf(newPlayer->name, NAME_LEN, "%s", name);
+    snprintf(newPlayer->name, NAME_LEN + 1, "%s", name);
 
     return newPlayer;
 }
