@@ -15,6 +15,8 @@ int main(void)
 
     Player * players[MAX_PLAYERS] = {0};
     Player * dealer = {0};
+
+    initShuffler();
     Deck * deck = initDeck(1);
 
     char printBuf[BUF_LEN + 1];
