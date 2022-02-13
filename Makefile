@@ -20,7 +20,7 @@ LDFLAGS := -lncurses
 all: $(FINAL_EXE)
 
 debug: CFLAGS += -g
-debug: $(FINAL_EXE)
+debug: clean $(FINAL_EXE)
 
 $(FINAL_EXE): $(OBJ)
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
